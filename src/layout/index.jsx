@@ -1,14 +1,22 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import styles from './Layout.module.css';
+import Analytics from '../modules/Analytics';
+import TransactionList from '../modules/TransactionList';
+import TransactionForm from '../modules/TransactionForm';
+import CurrencyConversion from '../modules/CurrencyConversion';
 
 function Layout() {
   return (
     <Container fluid className="p-0">
       <div className={styles.layoutContainer}>
         <div className={styles.leftSide}>
-          <div className={styles.leftTop}></div>
-          <div className={styles.leftBottom}></div>
+          <div className={styles.leftTop}>
+            <CurrencyConversion/>
+          </div>
+          <div className={styles.leftBottom}>
+            <TransactionForm/>
+          </div>
         </div>
         
         <div className={styles.rightSide}>
@@ -23,7 +31,9 @@ function Layout() {
             <div className={`${styles.middleBox} ${styles.middleRight}`}></div>
           </div>
           
-          <div className={styles.bottomBox}></div>
+          <div className={styles.bottomBox}>
+            <TransactionList/>
+          </div>
         </div>
       </div>
     </Container>
