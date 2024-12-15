@@ -5,10 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-import Select from '@/ui/Select';
-import Input from '@/ui/Input';
-import Button from '@/ui/Button';
-import TextArea from '@/ui/TextArea';
+import { Select, Input, TextArea, Button } from '@/ui';
 import { transactionSchema } from './schema';
 import { 
   TRANSACTION_TYPES, 
