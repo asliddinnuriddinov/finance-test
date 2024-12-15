@@ -1,16 +1,14 @@
 import React, { forwardRef } from 'react';
 import { Form } from 'react-bootstrap';
 
-const Select = forwardRef(({
+const TextArea = forwardRef(({
   label,
-  value, 
-  onChange, 
-  options = [], 
+  placeholder = '',
   className = '',
   disabled = false,
-  placeholder = '',
   error = '',
   required = false,
+  rows = 3,
   name = '',
   ...rest
 }, ref) => {
@@ -22,22 +20,16 @@ const Select = forwardRef(({
           {required && <span className="text-danger ms-1">*</span>}
         </Form.Label>
       )}
-      <Form.Select
+      <Form.Control
         ref={ref}
-        value={value}
-        onChange={onChange}
+        as="textarea"
+        rows={rows}
+        placeholder={placeholder}
         disabled={disabled}
         isInvalid={!!error}
         name={name}
         {...rest}
-      >
-        <option value="" defaultValue disabled hidden>{placeholder}</option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </Form.Select>
+      />
       {error && (
         <Form.Control.Feedback style={{marginLeft: '0.55rem'}} type="invalid">
           {error}
@@ -47,6 +39,6 @@ const Select = forwardRef(({
   );
 });
 
-Select.displayName = 'Select';
+TextArea.displayName = 'TextArea';
 
-export default Select;
+export default TextArea;
