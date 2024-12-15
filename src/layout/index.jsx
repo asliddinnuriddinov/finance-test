@@ -20,16 +20,7 @@ function Layout() {
         </div>
         
         <div className={styles.rightSide}>
-          <div className={styles.topBoxes}>
-            <div className={styles.topBox}></div>
-            <div className={styles.topBox}></div>
-            <div className={styles.topBox}></div>
-          </div>
-          
-          <div className={styles.middleBoxes}>
-            <div className={`${styles.middleBox} ${styles.middleLeft}`}></div>
-            <div className={`${styles.middleBox} ${styles.middleRight}`}></div>
-          </div>
+          <Analytics/>
           
           <div className={styles.bottomBox}>
             <TransactionList/>
