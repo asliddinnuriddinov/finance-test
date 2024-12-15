@@ -18,11 +18,13 @@ import {
 } from './constants';
 import { formatDate } from './helpers/dateHelpers';
 import { saveTransaction } from './helpers/storageHelpers';
+import { useCurrencyConverter } from './hooks/useCurrencyConverter';
 
 const TransactionForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [categories, setCategories] = useState(EXPENSE_CATEGORIES);
+  const { convertToUSD, formatAmount, error: conversionError } = useCurrencyConverter();
 
   const {
     register,
@@ -56,11 +58,18 @@ const TransactionForm = () => {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
-      await saveTransaction(data);
+      // Convert amount to USD before saving
+      const amountInUSD = await convertToUSD(Number(data.amount), data.currency);
+      const savedTransaction = await saveTransaction({
+        ...data,
+        amountInUSD
+      });
+      console.log('Transaction saved with USD conversion:', savedTransaction);
       reset();
       setSelectedDate(new Date());
     } catch (error) {
       console.error('Error saving transaction:', error);
+      alert(conversionError || 'Failed to save transaction. Please try again.');
     } finally {
       setIsLoading(false);
     }

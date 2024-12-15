@@ -1,14 +1,16 @@
 const TRANSACTIONS_KEY = 'transactions';
 
-export const saveTransaction = (transaction) => {
+export const saveTransaction = async (transaction) => {
   const transactions = getTransactions();
-  transactions.push({
+  const newTransaction = {
     ...transaction,
     id: Date.now().toString(),
     createdAt: new Date().toISOString()
-  });
+  };
+  
+  transactions.push(newTransaction);
   localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
-  return transaction;
+  return newTransaction;
 };
 
 export const getTransactions = () => {
