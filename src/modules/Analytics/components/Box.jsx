@@ -3,6 +3,13 @@ import { Card } from 'react-bootstrap'
 import { motion } from 'framer-motion'
 
 const Box = ({ category, title, amount, className = '' }) => {
+  const getColor = () => {
+    if (category === 'balance') {
+      return parseFloat(amount.replace(/,/g, '')) >= 0 ? '#198754' : '#dc3545';
+    }
+    return category === 'income' ? '#198754' : '#dc3545';
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,11 +28,7 @@ const Box = ({ category, title, amount, className = '' }) => {
             {title}
           </motion.h5>
           <motion.div 
-            style={{ 
-              color: category === 'balance' && amount > 0 ? '#198754' : 
-                     category === 'balance' && amount < 0 ? '#dc3545' : 
-                     category === 'income' ? '#198754' : '#dc3545'
-            }}
+            style={{ color: getColor() }}
             className="fs-3 fw-bold mb-0"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
