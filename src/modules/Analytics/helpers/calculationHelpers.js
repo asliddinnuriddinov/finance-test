@@ -16,25 +16,30 @@ export const calculateTotals = (transactions) => {
   return totals;
 };
 
-export const calculateMonthlyData = (transactions) => {
+export const calculateMonthlyData = (transactions, months = 6) => {
   const now = new Date();
   const monthlyData = {};
   
-  // Initialize last 6 months
-  for (let i = 0; i < 6; i++) {
+  // Initialize last n months
+  for (let i = 0; i < months; i++) {
     const month = format(subMonths(now, i), 'MMM yyyy');
     monthlyData[month] = { income: 0, expense: 0 };
   }
 
   // Fill in the data
   transactions.forEach(transaction => {
-    const month = format(new Date(transaction.date), 'MMM yyyy');
-    if (monthlyData[month]) {
-      const amount = parseFloat(transaction.amount);
-      if (transaction.type === 'income') {
-        monthlyData[month].income += amount;
-      } else {
-        monthlyData[month].expense += amount;
+    const transactionDate = new Date(transaction.date);
+    const monthsAgo = Math.round((now - transactionDate) / (1000 * 60 * 60 * 24 * 30.44)); // Approximate months
+    
+    if (monthsAgo < months) {
+      const month = format(transactionDate, 'MMM yyyy');
+      if (monthlyData[month]) {
+        const amount = parseFloat(transaction.amount);
+        if (transaction.type === 'income') {
+          monthlyData[month].income += amount;
+        } else {
+          monthlyData[month].expense += amount;
+        }
       }
     }
   });

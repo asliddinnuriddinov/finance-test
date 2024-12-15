@@ -11,8 +11,8 @@ import {
   Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Card } from 'react-bootstrap';
-import { motion } from 'framer-motion';
+import { Card, ButtonGroup, Button } from 'react-bootstrap';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Register ChartJS components
 ChartJS.register(
@@ -26,7 +26,7 @@ ChartJS.register(
   Filler
 );
 
-const LineChart = ({ data }) => {
+const LineChart = ({ data, onRangeChange, selectedRange = '6m' }) => {
   const chartData = {
     labels: data.map(item => item.month),
     datasets: [
@@ -133,16 +133,48 @@ const LineChart = ({ data }) => {
     >
       <Card className="h-100 shadow-sm">
         <Card.Body>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <Card.Title className="mb-4">Income vs Expenses</Card.Title>
-          </motion.div>
-          <div style={{ height: '300px' }}>
-            <Line data={chartData} options={options} />
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <Card.Title className="mb-0">Income vs Expenses</Card.Title>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <ButtonGroup size="sm">
+                {[
+                  { label: '3M', value: '3m' },
+                  { label: '6M', value: '6m' },
+                  { label: '12M', value: '12m' }
+                ].map((range) => (
+                  <Button
+                    key={range.value}
+                    variant={selectedRange === range.value ? 'primary' : 'outline-primary'}
+                    onClick={() => onRangeChange(range.value)}
+                  >
+                    {range.label}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </motion.div>
           </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedRange}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              style={{ height: '300px' }}
+            >
+              <Line data={chartData} options={options} />
+            </motion.div>
+          </AnimatePresence>
         </Card.Body>
       </Card>
     </motion.div>

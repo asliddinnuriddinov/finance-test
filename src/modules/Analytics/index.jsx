@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Box from './components/Box'
 import { useTransactions } from '@/context/TransactionContext'
@@ -8,9 +8,18 @@ import PieChart from './components/Charts/PieChart'
 
 function Analytics() {
   const { transactions } = useTransactions();
+  const [timeRange, setTimeRange] = useState('6m');
+  
   const totals = useMemo(() => calculateTotals(transactions), [transactions]);
-  const monthlyData = useMemo(() => calculateMonthlyData(transactions), [transactions]);
+  const monthlyData = useMemo(() => {
+    const months = parseInt(timeRange);
+    return calculateMonthlyData(transactions, months);
+  }, [transactions, timeRange]);
   const expenseCategories = useMemo(() => calculateExpenseCategories(transactions), [transactions]);
+
+  const handleRangeChange = (range) => {
+    setTimeRange(range);
+  };
 
   return (
     <div className="d-flex flex-column gap-4">
@@ -28,7 +37,11 @@ function Analytics() {
       
       <Row className="g-4">
         <Col md={8}>
-          <LineChart data={monthlyData} />
+          <LineChart 
+            data={monthlyData} 
+            selectedRange={timeRange}
+            onRangeChange={handleRangeChange}
+          />
         </Col>
         <Col md={4}>
           <PieChart data={expenseCategories} />

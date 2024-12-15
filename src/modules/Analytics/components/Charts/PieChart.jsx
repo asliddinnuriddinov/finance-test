@@ -108,7 +108,7 @@ const PieChart = ({ data }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <Card.Title className="mb-4">Expense Categories</Card.Title>
+            <Card.Title className="mb-5">Expense Categories</Card.Title>
           </motion.div>
           <div style={{ height: '300px' }}>
             {Object.keys(data).length > 0 ? (
