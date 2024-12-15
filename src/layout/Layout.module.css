@@ -1,0 +1,70 @@
+.layoutContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.leftTop {
+  height: 35vh;
+  background-color: #FFD6E0;
+  border-radius: 8px;
+}
+
+.leftBottom {
+  flex-grow: 1;
+  background-color: #C1FFD7;
+  border-radius: 8px;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  grid-column: 2/5;
+  gap: 20px;
+}
+
+.topBoxes {
+  display: grid;
+  grid-template-columns: repeat(3, 290px);
+  gap: 20px;
+}
+
+.topBox {
+  height: 140px;
+  background-color: #B5DEFF;
+  border-radius: 8px;
+}
+
+.middleBoxes {
+  display: grid;
+  grid-template-columns: 65% 1fr;
+  gap: 20px;
+}
+
+.middleBox {
+  height: 330px;
+  border-radius: 8px;
+}
+
+.middleLeft {
+  background-color: #FFE6CC;
+}
+
+.middleRight {
+  background-color: #E0C3FC;
+}
+
+.bottomBox {
+  flex: 1;
+  background-color: #FFCCCB;
+  border-radius: 8px;
+  min-height: 200px;
+}
