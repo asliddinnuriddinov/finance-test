@@ -39,7 +39,7 @@ const CurrencyConversion = () => {
 
   return (
     <Card className="h-100 shadow-sm overflow-scroll">
-      <Card.Header className="bg-white border-bottom-0">
+      <Card.Header className="bg-white">
         <h5 className="mb-0">Currency Converter</h5>
       </Card.Header>
       <Card.Body>
