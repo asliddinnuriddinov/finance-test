@@ -1,9 +1,7 @@
 import { getTransactions } from "@/services/storage/storage";
 
-export const calculateTotals = () => {
-  const transactions = getTransactions();
-  
-  const newTotals = transactions.reduce((acc, transaction) => {
+export const calculateTotals = (transactions) => {
+  const totals = transactions.reduce((acc, transaction) => {
     const amount = parseFloat(transaction.amount);
     if (transaction.type === 'income') {
       acc.income += amount;
@@ -11,8 +9,10 @@ export const calculateTotals = () => {
       acc.expense += amount;
     }
     return acc;
-  }, { income: 0, expense: 0 });
+  }, { income: 0, expense: 0, balance: 0 });
 
-  newTotals.balance = newTotals.income - newTotals.expense;
-  return newTotals;
+  // Calculate balance after reduce
+  totals.balance = totals.income - totals.expense;
+
+  return totals;
 };

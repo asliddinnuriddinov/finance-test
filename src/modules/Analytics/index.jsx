@@ -2,24 +2,11 @@ import React, { useMemo } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Box from './components/Box'
 import { useTransactions } from '@/context/TransactionContext'
+import { calculateTotals } from './helpers/calculationHelpers'
 
 function Analytics() {
   const { transactions } = useTransactions();
-  
-  const totals = useMemo(() => {
-    return transactions.reduce((acc, transaction) => {
-      const amount = parseFloat(transaction.amount);
-      if (transaction.type === 'income') {
-        acc.income += amount;
-      } else if (transaction.type === 'expense') {
-        acc.expense += amount;
-      }
-      return acc;
-    }, { income: 0, expense: 0, balance: 0 });
-  }, [transactions]);
-
-  // Calculate balance after reduce
-  totals.balance = totals.income - totals.expense;
+  const totals = useMemo(() => calculateTotals(transactions), [transactions]);
 
   return (
     <div className="d-flex flex-column gap-4">
