@@ -2,11 +2,15 @@ import React, { useMemo } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Box from './components/Box'
 import { useTransactions } from '@/context/TransactionContext'
-import { calculateTotals } from './helpers/calculationHelpers'
+import { calculateTotals, calculateMonthlyData, calculateExpenseCategories } from './helpers/calculationHelpers'
+import LineChart from './components/Charts/LineChart'
+import PieChart from './components/Charts/PieChart'
 
 function Analytics() {
   const { transactions } = useTransactions();
   const totals = useMemo(() => calculateTotals(transactions), [transactions]);
+  const monthlyData = useMemo(() => calculateMonthlyData(transactions), [transactions]);
+  const expenseCategories = useMemo(() => calculateExpenseCategories(transactions), [transactions]);
 
   return (
     <div className="d-flex flex-column gap-4">
@@ -22,13 +26,12 @@ function Analytics() {
         </Col>
       </Row>
       
-      {/* Middle Boxes */}
       <Row className="g-4">
         <Col md={8}>
-          <Box title='Income vs Expenses' amount='Chart Coming Soon' />
+          <LineChart data={monthlyData} />
         </Col>
         <Col md={4}>
-          <Box title='Categories' amount='Chart Coming Soon' />
+          <PieChart data={expenseCategories} />
         </Col>
       </Row>
     </div>
