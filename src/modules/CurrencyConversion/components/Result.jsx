@@ -2,8 +2,6 @@ import React from 'react';
 
 const Result = ( {result} ) => {
   if (!result) return null;
-    console.log(result);
-    
   const { 
     amount, 
     base_code: fromCurrency, 
