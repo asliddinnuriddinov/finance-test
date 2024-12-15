@@ -1,4 +1,4 @@
-import { getTransactions } from '../../TransactionForm/helpers/storageHelpers';
+import { getTransactions } from "@/services/storage/storage";
 
 export const calculateTotals = () => {
   const transactions = getTransactions();

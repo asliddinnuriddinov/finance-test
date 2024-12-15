@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Box from './components/Box'
-import { calculateTotals } from './helpers/calculationHelpers'
+import { useTransactions } from '@/context/TransactionContext'
 
 function Analytics() {
-  const [totals, setTotals] = useState({
-    income: 0,
-    expense: 0,
-    balance: 0
-  });
+  const { transactions } = useTransactions();
+  
+  const totals = useMemo(() => {
+    return transactions.reduce((acc, transaction) => {
+      const amount = parseFloat(transaction.amount);
+      if (transaction.type === 'income') {
+        acc.income += amount;
+      } else if (transaction.type === 'expense') {
+        acc.expense += amount;
+      }
+      return acc;
+    }, { income: 0, expense: 0, balance: 0 });
+  }, [transactions]);
 
-  useEffect(() => {
-    const newTotals = calculateTotals();
-    setTotals(newTotals);
-  }, []);
+  // Calculate balance after reduce
+  totals.balance = totals.income - totals.expense;
 
   return (
     <div className="d-flex flex-column gap-4">
