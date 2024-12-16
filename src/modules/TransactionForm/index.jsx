@@ -80,7 +80,7 @@ const TransactionForm = () => {
   };
 
   return (
-    <Card className="shadow-sm overflow-scroll">
+    <Card className="shadow-sm overflow-auto">
       <Card.Header className="bg-white">
         <h5 className="mb-0">Add New Transaction</h5>
       </Card.Header>
