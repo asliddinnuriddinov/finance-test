@@ -3,7 +3,7 @@ import { Card, Col, Form, Row } from 'react-bootstrap'
 import DatePicker from 'react-datepicker';
 import { TRANSACTION_CATEGORIES } from './constants';
 import { filterTransactions } from './helpers/filterTransactions';
-import CustomTable from '@/ui/Table';
+import { Table } from '@/ui';
 
 function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
@@ -76,7 +76,7 @@ function TransactionHistory() {
       </Card.Header>
 
       <Card.Body>
-        <CustomTable headings={['Date', 'Type', 'Category', 'Amount (Original)', 'Amount (USD)', 'Description']} data={filteredTransactions} dataToShow={['date', 'type', 'category', 'amount', 'amountInUSD', 'description']} />
+        <Table headings={['Date', 'Type', 'Category', 'Amount (Original)', 'Amount (USD)', 'Description']} data={filteredTransactions} dataToShow={['date', 'type', 'category', 'amount', 'amountInUSD', 'description']} />
       </Card.Body>
     </Card>
   )
