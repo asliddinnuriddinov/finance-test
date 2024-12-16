@@ -3,7 +3,7 @@ import { Badge } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import styles from '../../layout/Layout.module.css';
 
-const CustomTable = ({ headings, data, dataToShow }) => {
+const CustomTable = ({ headings, data, dataToShow, onRowClick }) => {
     return (
         <div className="table-responsive">
             <Table striped hover className={`${styles.animation} ${styles.table} shadow-sm`}>
@@ -16,7 +16,11 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                 </thead>
                 <tbody>
                     {data?.length>0 ? data.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
+                        <tr 
+                            key={rowIndex} 
+                            onClick={() => onRowClick?.(row)}
+                            style={{ cursor: onRowClick ? 'pointer' : 'default' }}
+                        >
                             {dataToShow.map((property, colIndex) => (
                                 <td style={{padding: '12px'}} key={colIndex} className="text-break">
                                     {property == 'type'?(

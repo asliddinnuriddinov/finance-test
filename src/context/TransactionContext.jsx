@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getTransactions, saveTransaction } from '@/services/storage/storage';
+import { getTransactions, saveTransaction, TRANSACTIONS_KEY } from '@/services/storage/storage';
 
 const TransactionContext = createContext();
 
@@ -26,8 +26,21 @@ export const TransactionProvider = ({ children }) => {
     return newTransaction;
   };
 
+  const deleteTransaction = async (id) => {
+    try {
+      const transactions = getTransactions();
+      const filteredTransactions = transactions.filter(t => t.id !== id);
+      localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(filteredTransactions));
+      setTransactions(prev => prev.filter(t => t.id !== id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
+      return false;
+    }
+  };
+
   return (
-    <TransactionContext.Provider value={{ transactions, addTransaction }}>
+    <TransactionContext.Provider value={{ transactions, addTransaction, deleteTransaction }}>
       {children}
     </TransactionContext.Provider>
   );
