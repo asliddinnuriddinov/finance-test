@@ -59,7 +59,7 @@ const TransactionForm = () => {
       const usdAmount = await convertToUSD(parseFloat(data.amount), data.currency);
       await addTransaction({
         ...data,
-        amount: usdAmount,
+        amountInUSD: usdAmount,
         date: formatDate(selectedDate)
       });
       reset();
