@@ -16,13 +16,13 @@ const Result = ( {result} ) => {
         <div className="mt-1">
             <div className="d-flex flex-column gap-3">
                 <div className="text-center">
-                    <span className="fs-4 fw-bold">
-                    {amount} {fromCurrency} = {convertedAmount} {toCurrency}
+                    <span className="fs-4 fw-bold text-break">
+                        {amount} {fromCurrency} = {convertedAmount} {toCurrency}
                     </span>
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
-                    <span className="text-muted">
-                    Exchange Rate: 1 {fromCurrency} = {rate} {toCurrency}
+                <div className="text-center">
+                    <span className="text-muted text-break">
+                        Exchange Rate: 1 {fromCurrency} = {rate} {toCurrency}
                     </span>
                 </div>
             </div>
