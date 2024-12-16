@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import CurrencyService from '@/services/api/CurrencyService';
+import ConversionService from '@/services/api/ConversionService';
 
 export const useCurrencyConverter = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,13 +11,8 @@ export const useCurrencyConverter = () => {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await CurrencyService.getAll();
-      const rates = response.conversion_rates;
-      if (!rates || !rates[fromCurrency]) {
-        throw new Error(`Exchange rate not found for ${fromCurrency}`);
-      }
-      const rate = 1 / rates[fromCurrency];
-      return Number((amount * rate).toFixed(2));
+      const response = await ConversionService.getSingle(fromCurrency, 'USD', amount);
+      return Number((response.conversion_result).toFixed(2));
     } catch (error) {
       setError(error.message);
       throw error;
