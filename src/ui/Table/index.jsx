@@ -5,47 +5,49 @@ import styles from '../../layout/Layout.module.css';
 
 const CustomTable = ({ headings, data, dataToShow }) => {
     return (
-        <Table striped hover className={`${styles.animation} ${styles.table} shadow-sm`}>
-            <thead>
-                <tr>
-                    {headings.map((heading, index) => (
-                        <th key={index}>{heading}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data?.length>0 ? data.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {dataToShow.map((property, colIndex) => (
-                            <td style={{padding: '20px 12px'}} key={colIndex}>
-                                {property == 'type'?(
-                                    row[property] === 'income' ? (
-                                        <Badge style={{fontSize: '15px'}} bg="success">{row[property]}</Badge>
-                                    ) : (
-                                        <Badge style={{fontSize: '15px'}} bg="danger">{row[property]}</Badge>
-                                    )
-                                ):
-                                property.includes('amount')?(
-                                    property == 'amount' ? 
-                                    `${row[property]} ${row.currency}`
-                                    :
-                                    `${row[property]} USD`
-                                ):
-                                (
-                                    row[property] && row[property].length<35 ? row[property] : row[property] ? row[property].slice(0,32)+'...' : 'N/A'
-                                )}
-                            </td>
+        <div className="table-responsive">
+            <Table striped hover className={`${styles.animation} ${styles.table} shadow-sm`}>
+                <thead>
+                    <tr>
+                        {headings.map((heading, index) => (
+                            <th key={index} className="text-nowrap">{heading}</th>
                         ))}
                     </tr>
-                ))
-                :(
-                    <tr>
-                        <td style={{textAlign: 'center', padding: '20px'}} colSpan={dataToShow.length}>No data available</td>
-                    </tr>
-                )
-            }
-            </tbody>
-        </Table>
+                </thead>
+                <tbody>
+                    {data?.length>0 ? data.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                            {dataToShow.map((property, colIndex) => (
+                                <td style={{padding: '12px'}} key={colIndex} className="text-break">
+                                    {property == 'type'?(
+                                        row[property] === 'income' ? (
+                                            <Badge style={{fontSize: '14px'}} bg="success">{row[property]}</Badge>
+                                        ) : (
+                                            <Badge style={{fontSize: '14px'}} bg="danger">{row[property]}</Badge>
+                                        )
+                                    ):
+                                    property.includes('amount')?(
+                                        property == 'amount' ? 
+                                        `${row[property]} ${row.currency}`
+                                        :
+                                        `${row[property]} USD`
+                                    ):
+                                    (
+                                        row[property] && row[property].length<35 ? row[property] : row[property] ? row[property].slice(0,32)+'...' : 'N/A'
+                                    )}
+                                </td>
+                            ))}
+                        </tr>
+                    ))
+                    :(
+                        <tr>
+                            <td style={{textAlign: 'center', padding: '20px'}} colSpan={dataToShow.length}>No data available</td>
+                        </tr>
+                    )
+                }
+                </tbody>
+            </Table>
+        </div>
     );
 };
 
