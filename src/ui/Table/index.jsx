@@ -26,9 +26,9 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                                 ):
                                 property.includes('amount')?(
                                     property == 'amount' ? 
-                                    `${row[property].toFixed(2)} ${row.currency}`
+                                    `${row[property]} ${row.currency}`
                                     :
-                                    `${row[property].toFixed(2)} USD`
+                                    `${row[property]} USD`
                                 ):
                                 (
                                     row[property] !== undefined ? row[property] : 'N/A'
