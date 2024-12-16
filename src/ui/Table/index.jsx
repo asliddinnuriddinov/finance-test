@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 
 const CustomTable = ({ headings, data, dataToShow }) => {
     return (
-        <Table striped hover rounded className='shadow-sm'>
+        <Table striped hover className='shadow-sm'>
             <thead>
                 <tr>
                     {headings.map((heading, index) => (
@@ -31,7 +31,7 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                                     `${row[property]} USD`
                                 ):
                                 (
-                                    row[property] !== undefined ? row[property] : 'N/A'
+                                    row[property] && row[property].length<35 ? row[property] : row[property] ? row[property].slice(0,32)+'...' : 'N/A'
                                 )}
                             </td>
                         ))}
