@@ -12,7 +12,7 @@ const Result = ( {result} ) => {
 
   return (
     <div className='mt-3'>
-        <h2 className='text-center border-top pt-1'>Result</h2>
+        <h3 style={{color: '#198754'}} className='text-center border-top pt-1'>Result</h3>
         <div className="mt-1">
             <div className="d-flex flex-column gap-3">
                 <div className="text-center">

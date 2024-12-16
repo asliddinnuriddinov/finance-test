@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ConversionService from '@/services/api/ConversionService';
+import { toast } from 'react-toastify';
 
 export const useConversion = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -8,11 +9,12 @@ export const useConversion = () => {
     setIsLoading(true)
     try{
       const response=await ConversionService.getSingle(from, to, amount)
+      toast.success('Conversion successful');
       return response
     }
     catch(err){
         console.log(err);
-        
+        toast.error('Conversion failed, please try again');
     }
     finally{
       setIsLoading(false)
