@@ -58,7 +58,7 @@ export const calculateExpenseCategories = (transactions) => {
   return transactions
     .filter(t => t.type === 'expense')
     .reduce((acc, transaction) => {
-      const amount = parseFloat(transaction.amount);
+      const amount = parseFloat(transaction.amountInUSD);
       acc[transaction.category] = (acc[transaction.category] || 0) + amount;
       return acc;
     }, {});
