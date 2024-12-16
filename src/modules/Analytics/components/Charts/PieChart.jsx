@@ -108,14 +108,14 @@ const PieChart = ({ data }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <Card.Title className="mb-5">Expense Categories</Card.Title>
+            <Card.Title>Expense Categories</Card.Title>
           </motion.div>
-          <div style={{ height: '300px' }}>
+          <div style={{ height: '323px' }}>
             {Object.keys(data).length > 0 ? (
               <Pie data={chartData} options={options} />
             ) : (
               <motion.div 
-                className="text-center mt-5 text-muted"
+                className="text-center text-muted h-100 d-flex align-items-center justify-content-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
