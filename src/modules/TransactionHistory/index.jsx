@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import { TRANSACTION_CATEGORIES } from './constants';
 import { filterTransactions } from './helpers/filterTransactions';
 import { Table } from '@/ui';
+import { useTransactions } from '@/context/TransactionContext';
 
 function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
@@ -11,12 +12,12 @@ function TransactionHistory() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const { transactions: storedTransactions } = useTransactions();
 
   useEffect(() => {
-    const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
     setTransactions(storedTransactions);
     setFilteredTransactions(storedTransactions);
-  }, []);
+  }, [storedTransactions]);
 
   useEffect(() => {
     let filtered = filterTransactions(transactions, categoryFilter, startDate, endDate);
