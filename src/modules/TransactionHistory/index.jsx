@@ -39,7 +39,7 @@ function TransactionHistory() {
 
   return (
     <Card className="mb-4">
-      <Card.Header>
+      <Card.Header className="bg-white">
         <h4 className="mb-3">Transactions History</h4>
         <Row>
           <Col md={4}>
