@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Card, Col, Form, Row } from 'react-bootstrap'
 import DatePicker from 'react-datepicker';
 import { TRANSACTION_CATEGORIES } from './constants';
+import { filterTransactions } from './helpers/filterTransactions';
+import CustomTable from '@/ui/Table';
 
 function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
@@ -17,24 +19,8 @@ function TransactionHistory() {
   }, []);
 
   useEffect(() => {
-    let filtered = [...transactions];
-    
-    // Filter by category
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(t => t.category === categoryFilter);
-    }
-
-    // Filter by date range
-    if (startDate && endDate) {
-        filtered = filtered.filter(t => {
-            const transactionDate = new Date(t.date);
-            return isWithinInterval(transactionDate, { start: startDate, end: endDate });
-        });
-    }
-
+    let filtered = filterTransactions(transactions, categoryFilter, startDate, endDate);
     setFilteredTransactions(filtered);
-    console.log(filtered);
-    
   }, [categoryFilter, startDate, endDate, transactions]);
 
   return (
@@ -88,6 +74,10 @@ function TransactionHistory() {
           </Col>
         </Row>
       </Card.Header>
+
+      <Card.Body>
+        <CustomTable headings={['Date', 'Type', 'Category', 'Amount (Original)', 'Amount (USD)', 'Description']} data={filteredTransactions} dataToShow={['date', 'type', 'category', 'amount', 'amountInUSD', 'description']} />
+      </Card.Body>
     </Card>
   )
 }
