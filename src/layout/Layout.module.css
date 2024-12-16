@@ -14,13 +14,11 @@
 
 .leftTop {
   height: 35vh;
-  background-color: #FFD6E0;
   border-radius: 8px;
 }
 
 .leftBottom {
   flex-grow: 1;
-  background-color: #C1FFD7;
   border-radius: 8px;
 }
 
@@ -54,15 +52,6 @@
   border-radius: 8px;
 }
 
-.middleLeft {
-  background-color: #FFE6CC;
-}
-
-.middleRight {
-  background-color: #E0C3FC;
-}
-
 .bottomBox {
   flex: 1;
-  border-radius: 8px;
 }
