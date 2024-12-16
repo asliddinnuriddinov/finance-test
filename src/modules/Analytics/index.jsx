@@ -1,8 +1,50 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { Row, Col } from 'react-bootstrap'
+import Box from './components/Box'
+import { useTransactions } from '@/context/TransactionContext'
 
 function Analytics() {
+  const { transactions } = useTransactions();
+  
+  const totals = useMemo(() => {
+    return transactions.reduce((acc, transaction) => {
+      const amount = parseFloat(transaction.amount);
+      if (transaction.type === 'income') {
+        acc.income += amount;
+      } else if (transaction.type === 'expense') {
+        acc.expense += amount;
+      }
+      return acc;
+    }, { income: 0, expense: 0, balance: 0 });
+  }, [transactions]);
+
+  // Calculate balance after reduce
+  totals.balance = totals.income - totals.expense;
+
   return (
-    <div>Analytics</div>
+    <div className="d-flex flex-column gap-4">
+      <Row>
+        <Col>
+          <Box category='income' title='Total Income (USD)' amount={totals.income.toLocaleString()} />
+        </Col>
+        <Col>
+          <Box category='expense' title='Total Expenses (USD)' amount={totals.expense.toLocaleString()} />
+        </Col>
+        <Col>
+          <Box category='balance' title='Total Balance (USD)' amount={totals.balance.toLocaleString()} />
+        </Col>
+      </Row>
+      
+      {/* Middle Boxes */}
+      <Row className="g-4">
+        <Col md={8}>
+          <Box title='Income vs Expenses' amount='Chart Coming Soon' />
+        </Col>
+        <Col md={4}>
+          <Box title='Categories' amount='Chart Coming Soon' />
+        </Col>
+      </Row>
+    </div>
   )
 }
 
