@@ -16,6 +16,7 @@ import {
 import { formatDate } from './helpers/dateHelpers';
 import { useCurrencyConverter } from './hooks/useCurrencyConverter';
 import { useTransactions } from '@/context/TransactionContext';
+import { toast } from 'react-toastify';
 
 const TransactionForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -63,8 +64,10 @@ const TransactionForm = () => {
         date: formatDate(selectedDate)
       });
       reset();
+      toast.success('Transaction added successfully');
     } catch (error) {
       console.error('Error saving transaction:', error);
+      toast.error('Failed to add transaction, please try again.');
     } finally {
       setIsLoading(false);
     }
