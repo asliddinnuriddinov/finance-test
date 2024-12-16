@@ -2,6 +2,8 @@
 
 A comprehensive personal finance management system built with ReactJS and Bootstrap that helps users track their income, expenses, and monitor currency exchange rates in real-time.
 
+Link for live demo: [https://personal-finance-test.netlify.app/](https://personal-finance-test.netlify.app/)
+
 ## Features
 
 - 💱 Real-time currency conversion with ExchangeRate-API
