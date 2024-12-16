@@ -64,7 +64,5 @@
 
 .bottomBox {
   flex: 1;
-  background-color: #FFCCCB;
   border-radius: 8px;
-  min-height: 200px;
 }
