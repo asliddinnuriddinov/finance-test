@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import styles from './Layout.module.css';
 import Analytics from '../modules/Analytics';
-import TransactionList from '../modules/TransactionList';
+import TransactionHistory from '../modules/TransactionHistory';
 import TransactionForm from '../modules/TransactionForm';
 import CurrencyConversion from '../modules/CurrencyConversion';
 
@@ -23,7 +23,7 @@ function Layout() {
           <Analytics/>
           
           <div className={styles.bottomBox}>
-            <TransactionList/>
+            <TransactionHistory/>
           </div>
         </div>
       </div>
