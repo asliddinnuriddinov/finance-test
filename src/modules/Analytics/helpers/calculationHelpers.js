@@ -3,7 +3,7 @@ import { format, subMonths, startOfMonth } from 'date-fns';
 
 export const calculateTotals = (transactions) => {
   const totals = transactions.reduce((acc, transaction) => {
-    const amount = parseFloat(transaction.amount);
+    const amount = parseFloat(transaction.amountInUSD);
     if (transaction.type === 'income') {
       acc.income += amount;
     } else if (transaction.type === 'expense') {
