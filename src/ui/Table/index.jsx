@@ -1,10 +1,11 @@
 import React from 'react';
 import { Badge } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
+import styles from '../../layout/Layout.module.css';
 
 const CustomTable = ({ headings, data, dataToShow }) => {
     return (
-        <Table striped hover className='shadow-sm'>
+        <Table striped hover className={`${styles.animation} ${styles.table} shadow-sm`}>
             <thead>
                 <tr>
                     {headings.map((heading, index) => (
@@ -13,7 +14,7 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((row, rowIndex) => (
+                {data ? data.map((row, rowIndex) => (
                     <tr key={rowIndex}>
                         {dataToShow.map((property, colIndex) => (
                             <td key={colIndex}>
@@ -36,7 +37,13 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                             </td>
                         ))}
                     </tr>
-                ))}
+                ))
+                :(
+                    <tr>
+                        <td colSpan={dataToShow.length}>No data available</td>
+                    </tr>
+                )
+            }
             </tbody>
         </Table>
     );

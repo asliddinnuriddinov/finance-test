@@ -52,3 +52,15 @@
   border-radius: 8px;
 }
 
+@keyframes fadeIn {
+  from { scale: 0; }
+  to { scale: 1; }
+}
+
+.table {
+  animation: fadeIn 0.2s ease-in;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
