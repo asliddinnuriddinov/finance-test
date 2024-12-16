@@ -26,7 +26,7 @@ function TransactionHistory() {
   return (
     <Card className="mb-4">
       <Card.Header>
-        <h5 className="mb-3">Transactions</h5>
+        <h4 className="mb-3">Transactions History</h4>
         <Row>
           <Col md={4}>
             <Form.Group className="mb-3">
@@ -75,7 +75,7 @@ function TransactionHistory() {
         </Row>
       </Card.Header>
 
-      <Card.Body>
+      <Card.Body style={{ overflowY: 'auto', maxHeight: '17.7vw' }}>
         <Table headings={['Date', 'Type', 'Category', 'Amount (Original)', 'Amount (USD)', 'Description']} data={filteredTransactions} dataToShow={['date', 'type', 'category', 'amount', 'amountInUSD', 'description']} />
       </Card.Body>
     </Card>
