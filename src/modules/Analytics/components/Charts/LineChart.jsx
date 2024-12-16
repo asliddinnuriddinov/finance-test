@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -181,4 +181,4 @@ const LineChart = ({ data, onRangeChange, selectedRange = '6m' }) => {
   );
 };
 
-export default LineChart;
+export default memo(LineChart)

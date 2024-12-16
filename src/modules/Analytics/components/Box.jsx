@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Card } from 'react-bootstrap'
 import { motion } from 'framer-motion'
 
@@ -47,4 +47,4 @@ const Box = ({ category, title, amount, className = '' }) => {
   )
 }
 
-export default Box
+export default memo(Box)
