@@ -1,9 +1,8 @@
-import { getTransactions } from "@/services/storage/storage";
-import { format, subMonths, startOfMonth } from 'date-fns';
+import { format, subMonths } from 'date-fns';
 
 export const calculateTotals = (transactions) => {
   const totals = transactions.reduce((acc, transaction) => {
-    const amount = parseFloat(transaction.amount);
+    const amount = parseFloat(transaction.amountInUSD);
     if (transaction.type === 'income') {
       acc.income += amount;
     } else if (transaction.type === 'expense') {
@@ -34,7 +33,7 @@ export const calculateMonthlyData = (transactions, months = 6) => {
     if (monthsAgo < months) {
       const month = format(transactionDate, 'MMM yyyy');
       if (monthlyData[month]) {
-        const amount = parseFloat(transaction.amount);
+        const amount = parseFloat(transaction.amountInUSD);
         if (transaction.type === 'income') {
           monthlyData[month].income += amount;
         } else {
