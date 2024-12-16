@@ -17,3 +17,5 @@ export const saveTransaction = async (transaction) => {
   localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
   return newTransaction;
 };
+
+export { TRANSACTIONS_KEY };
