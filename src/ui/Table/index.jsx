@@ -14,10 +14,10 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                 </tr>
             </thead>
             <tbody>
-                {data ? data.map((row, rowIndex) => (
+                {data?.length>0 ? data.map((row, rowIndex) => (
                     <tr key={rowIndex}>
                         {dataToShow.map((property, colIndex) => (
-                            <td key={colIndex}>
+                            <td style={{padding: '20px 12px'}} key={colIndex}>
                                 {property == 'type'?(
                                     row[property] === 'income' ? (
                                         <Badge style={{fontSize: '15px'}} bg="success">{row[property]}</Badge>
@@ -40,7 +40,7 @@ const CustomTable = ({ headings, data, dataToShow }) => {
                 ))
                 :(
                     <tr>
-                        <td colSpan={dataToShow.length}>No data available</td>
+                        <td style={{textAlign: 'center', padding: '20px'}} colSpan={dataToShow.length}>No data available</td>
                     </tr>
                 )
             }
