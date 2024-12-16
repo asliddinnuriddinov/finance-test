@@ -5,6 +5,7 @@ import { TRANSACTION_CATEGORIES } from './constants';
 import { filterTransactions } from './helpers/filterTransactions';
 import { Table } from '@/ui';
 import { useTransactions } from '@/context/TransactionContext';
+import SingleHistory from './modules/SingleHistory';
 
 function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
@@ -12,6 +13,8 @@ function TransactionHistory() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { transactions: storedTransactions } = useTransactions();
 
   useEffect(() => {
@@ -23,6 +26,16 @@ function TransactionHistory() {
     let filtered = filterTransactions(transactions, categoryFilter, startDate, endDate);
     setFilteredTransactions(filtered);
   }, [categoryFilter, startDate, endDate, transactions]);
+
+  const handleRowClick = (transaction) => {
+    setSelectedTransaction(transaction);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTransaction(null);
+  };
 
   return (
     <Card className="mb-4">
@@ -77,8 +90,19 @@ function TransactionHistory() {
       </Card.Header>
 
       <Card.Body style={{ overflowY: 'auto', maxHeight: '17.7vw' }}>
-        <Table headings={['Date', 'Type', 'Category', 'Amount (Original)', 'Amount (USD)', 'Description']} data={filteredTransactions} dataToShow={['date', 'type', 'category', 'amount', 'amountInUSD', 'description']} />
+        <Table 
+          headings={['Date', 'Type', 'Category', 'Amount (Original)', 'Amount (USD)', 'Description']} 
+          data={filteredTransactions} 
+          dataToShow={['date', 'type', 'category', 'amount', 'amountInUSD', 'description']}
+          onRowClick={handleRowClick}
+        />
       </Card.Body>
+
+      <SingleHistory 
+        isOpen={isModalOpen}
+        closeModal={handleCloseModal}
+        data={selectedTransaction}
+      />
     </Card>
   )
 }
