@@ -22,7 +22,7 @@ export const TransactionProvider = ({ children }) => {
 
   const addTransaction = async (transaction) => {
     const newTransaction = await saveTransaction(transaction);
-    setTransactions(prev => [...prev, newTransaction]);
+    setTransactions(prev => [newTransaction,...prev]);
     return newTransaction;
   };
 

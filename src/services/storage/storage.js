@@ -13,7 +13,7 @@ export const saveTransaction = async (transaction) => {
     createdAt: new Date().toISOString()
   };
   
-  transactions.push(newTransaction);
+  transactions.unshift(newTransaction);
   localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(transactions));
   return newTransaction;
 };
